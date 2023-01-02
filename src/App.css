@@ -7,4 +7,22 @@
   min-height: 100vh;
 
 }
+.heading{
+  font-size:40px;
+  text-transform: uppercase;   
+}
+.title{
+  margin-top: 20px;
+  width: 500px;
+  height:30px;
+  font-size: 20px;
+}
+.submitBtn{
+  height:38px;
+  width:90px;
+
+}
+.submitBtn:hover{
+  background-color: greenyellow;
+}
 
