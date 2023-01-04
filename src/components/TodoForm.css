@@ -1,0 +1,15 @@
+.title{
+    margin-top: 20px;
+    width: 500px;
+    height:30px;
+    font-size: 20px;
+  }
+  .submitBtn{
+    height:38px;
+    width:90px;
+  
+  }
+  .submitBtn:hover{
+    background-color: greenyellow;
+  }
+  

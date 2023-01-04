@@ -1,18 +1,13 @@
+import React from 'react'
 import './App.css'
 
-function App () {
+import TodoForm from './components/TodoForm.js'
+
+function App() {
   return (
     <div className='App'>
-      <header className='App-header'>
-        <label className='heading'> TodoList</label>
-        <form>
-          <input className='title' type='text' placeholder='what do you want to achieve...?' />
-          <button className='submitBtn'>
-            ADD TASK
-          </button>
-
-        </form>
-      </header>
+      <label className='heading'> TodoList</label>
+      <TodoForm />
     </div>
   )
 }
