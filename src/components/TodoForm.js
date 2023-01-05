@@ -3,24 +3,28 @@ import React from 'react'
 import './TodoForm.css'
 import TodoItem from './TodoItem.js'
 
-let id = 0
-
 function TodoForm() {
     const [inputText, setInputText] = useState('')
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState(
+        JSON.parse(localStorage.getItem('items')) || []
+    )
 
     function addTodo(event) {
         event.preventDefault()
         console.log(inputText)
         if (inputText.trim() === '') return
         todos.push({
-            id: id++,
+            id:
+                todos.length === 0
+                    ? 0
+                    : Math.max(...todos.map((e) => e.id)) + 1,
             title: inputText,
             checkbox: false,
+            dueDate: '',
             notes: '',
             priority: ''
         })
-        // console.log('after adding', todos)
+        localStorage.setItem('items', JSON.stringify(todos))
         setInputText('')
     }
 
