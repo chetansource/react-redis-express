@@ -3,30 +3,29 @@ import React from 'react'
 import './TodoForm.css'
 import TodoItem from './TodoItem.js'
 
+let id = 0
+
 function TodoForm() {
-    let id = 0
     const [inputText, setInputText] = useState('')
     const [todos, setTodos] = useState([])
-    function handleSubmit(event) {
-        event.preventDefault()
-    }
 
-    function addTodo() {
-        setTodos([
-            ...todos,
-            {
-                id: id++,
-                title: inputText,
-                notes: '',
-                dueDate: new Date(),
-                priority: ''
-            }
-        ])
-        console.log(todos)
+    function addTodo(event) {
+        event.preventDefault()
+        console.log(inputText)
+        if (inputText.trim() === '') return
+        todos.push({
+            id: id++,
+            title: inputText,
+            checkbox: false,
+            notes: '',
+            priority: ''
+        })
+        // console.log('after adding', todos)
         setInputText('')
     }
+
     return (
-        <form onSubmit={handleSubmit}>
+        <form>
             <input
                 className='title'
                 type='text'
@@ -40,15 +39,9 @@ function TodoForm() {
             </button>
             <div>
                 {todos.map((todo) => (
-                    <TodoItem key={todo.id} todoInfo={todo} />
+                    <TodoItem key={todo.id} todo={todo} />
                 ))}
             </div>
-
-            {/* <div>
-                {todos.map((todo) => (
-                    <li key={todo.id}>{todo.title}</li>
-                ))}
-            </div> */}
         </form>
     )
 }
