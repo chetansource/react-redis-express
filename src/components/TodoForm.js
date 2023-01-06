@@ -31,6 +31,21 @@ function TodoForm() {
     localStorage.setItem('items', JSON.stringify(removeTodo))
   }
 
+  function updateCheckBox(check, id) {
+    const tempTodos = JSON.parse(localStorage.getItem('items'))
+    const tempTodo = tempTodos.find((obj) => obj.id === id)
+    tempTodo.checkbox = !check
+    setTodos(tempTodos)
+    localStorage.setItem('items', JSON.stringify(tempTodos))
+  }
+  function updateTodo(property, id) {
+    const tempTodos = JSON.parse(localStorage.getItem('items'))
+    const tempTodo = tempTodos.find((obj) => obj.id === id)
+    tempTodo.title = property
+    setTodos(tempTodos)
+    localStorage.setItem('items', JSON.stringify(tempTodos))
+  }
+
   return (
     <form className='todoForm'>
       <div className='form'>
@@ -48,7 +63,13 @@ function TodoForm() {
       </div>
       <div>
         {todos.map((todo) => (
-          <TodoItem key={todo.id} todo={todo} onDelete={deleteTodo} />
+          <TodoItem
+            key={todo.id}
+            todo={todo}
+            onDelete={deleteTodo}
+            onCheckboxUpdate={updateCheckBox}
+            onUpdate={updateTodo}
+          />
         ))}
       </div>
     </form>

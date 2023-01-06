@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './TodoItem.css'
 function TodoItem(props) {
-  console.log(props.onDelete)
   const optionList = ['none', 'low', 'medium', 'high']
   const [priority, setPriority] = useState('none')
   function handlePriority(e) {
@@ -19,19 +18,23 @@ function TodoItem(props) {
         <input
           type='checkbox'
           className='checkBox'
-          value={props.todo.checkbox}
+          checked={props.todo.checkbox}
+          onChange={() =>
+            props.onCheckboxUpdate(props.todo.checkbox, props.todo.id)
+          }
         ></input>
         <input
           type='text'
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
+          onChange={() => props.onUpdate(props.todo.title, props.todo.id)}
         ></input>
       </div>
       <div className='dropdown'>
         {dropDown && (
           <div>
-            <textarea className='textNote' value={props.todo.note}></textarea>
+            <textarea className='textNote' value={props.todo.notes}></textarea>
             <div className='elements'>
               <div>
                 <label for='dateInput'>DueDate:</label>
