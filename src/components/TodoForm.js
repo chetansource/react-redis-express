@@ -16,7 +16,7 @@ function TodoForm() {
       id: todos.length === 0 ? 0 : Math.max(...todos.map((e) => e.id)) + 1,
       title: inputText,
       checkbox: false,
-      dueDate: '',
+      dueDate: new Date().toISOString().slice(0, 10),
       notes: '',
       priority: ''
     })
