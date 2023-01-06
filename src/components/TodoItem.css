@@ -1,3 +1,48 @@
-.fff{
-    background: yellow;
+.addTodo{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.todoTitle{
+    width: 500px;
+    height: 30px;
+    margin-top: 7px;
+    font-size: 16px;
+    font-weight: bold;
+}
+ .checkBox{
+    width: 22px;
+    height: 48px;
+
+}
+.checkBox:checked + .todoTitle{
+    text-decoration: line-through;
+    background: rgb(243, 189, 155);
+}
+.dropdown{  
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-left: 690px;
+    margin-right: 690px;
+    background: #8bb0f9;
+}
+
+.textNote{
+    width: 525px;
+    height: 180px;
+    resize: none;
+    
+}
+.elements{
+    display: flex;
+    justify-content: space-between;
+}
+.delTodo{
+    width: 80px;
+    height: 25px;
+    font-size: 16px;
+}
+.delTodo:hover{
+    background-color: rgb(225, 91, 91);
 }
