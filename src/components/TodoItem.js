@@ -28,7 +28,7 @@ function TodoItem(props) {
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
-          onChange={() => props.onUpdate(props.todo.title, props.todo.id)}
+          //   onChange={() => props.onUpdate(props.todo.title, props.todo.id)}
         ></input>
       </div>
       <div className='dropdown'>

@@ -38,13 +38,14 @@ function TodoForm() {
     setTodos(tempTodos)
     localStorage.setItem('items', JSON.stringify(tempTodos))
   }
-  function updateTodo(property, id) {
-    const tempTodos = JSON.parse(localStorage.getItem('items'))
-    const tempTodo = tempTodos.find((obj) => obj.id === id)
-    tempTodo.title = property
-    setTodos(tempTodos)
-    localStorage.setItem('items', JSON.stringify(tempTodos))
-  }
+  //   function updateTodo(property, id) {
+  //     const tempTodos = JSON.parse(localStorage.getItem('items'))
+  //     const tempTodo = tempTodos.find((obj) => obj.id === id)
+  //     tempTodo.title = property
+  //     setInputText(tempTodo.title)
+  //     setTodos(tempTodos)
+  //     localStorage.setItem('items', JSON.stringify(tempTodos))
+  //   }
 
   return (
     <form className='todoForm'>
@@ -68,7 +69,7 @@ function TodoForm() {
             todo={todo}
             onDelete={deleteTodo}
             onCheckboxUpdate={updateCheckBox}
-            onUpdate={updateTodo}
+            // onUpdate={updateTodo}
           />
         ))}
       </div>
