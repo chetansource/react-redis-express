@@ -32,20 +32,40 @@ function TodoForm() {
   }
 
   function updateCheckBox(check, id) {
-    const tempTodos = JSON.parse(localStorage.getItem('items'))
-    const tempTodo = tempTodos.find((obj) => obj.id === id)
-    tempTodo.checkbox = !check
-    setTodos(tempTodos)
-    localStorage.setItem('items', JSON.stringify(tempTodos))
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.find((obj) => obj.id === id)
+    editTodo.checkbox = !check
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
-  //   function updateTodo(property, id) {
-  //     const tempTodos = JSON.parse(localStorage.getItem('items'))
-  //     const tempTodo = tempTodos.find((obj) => obj.id === id)
-  //     tempTodo.title = property
-  //     setInputText(tempTodo.title)
-  //     setTodos(tempTodos)
-  //     localStorage.setItem('items', JSON.stringify(tempTodos))
-  //   }
+  function updateTitle(property, id) {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.find((obj) => obj.id === id)
+    editTodo.title = property
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  }
+  function updateNote(property, id) {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.find((obj) => obj.id === id)
+    editTodo.notes = property
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  }
+  function updateDueDate(property, id) {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.find((obj) => obj.id === id)
+    editTodo.dueDate = property
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  }
+  function updatePriority(property, id) {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.find((obj) => obj.id === id)
+    editTodo.priority = property
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  }
 
   return (
     <form className='todoForm'>
@@ -69,7 +89,10 @@ function TodoForm() {
             todo={todo}
             onDelete={deleteTodo}
             onCheckboxUpdate={updateCheckBox}
-            // onUpdate={updateTodo}
+            onUpdateTitle={updateTitle}
+            onUpdateNote={updateNote}
+            onUpdateDueDate={updateDueDate}
+            onUpdatePriority={updatePriority}
           />
         ))}
       </div>

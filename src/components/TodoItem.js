@@ -28,13 +28,21 @@ function TodoItem(props) {
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
-          //   onChange={() => props.onUpdate(props.todo.title, props.todo.id)}
+          onChange={(event) =>
+            props.onUpdateTitle(event.target.value, props.todo.id)
+          }
         ></input>
       </div>
       <div className='dropdown'>
         {dropDown && (
           <div>
-            <textarea className='textNote' value={props.todo.notes}></textarea>
+            <textarea
+              className='textNote'
+              value={props.todo.notes}
+              onChange={(event) =>
+                props.onUpdateNote(event.target.value, props.todo.id)
+              }
+            ></textarea>
             <div className='elements'>
               <div>
                 <label for='dateInput'>DueDate:</label>
@@ -42,11 +50,20 @@ function TodoItem(props) {
                   type='date'
                   id='dueDate'
                   value={props.todo.dueDate}
+                  onChange={(event) =>
+                    props.onUpdateDueDate(event.target.value, props.todo.id)
+                  }
                 ></input>
               </div>
               <div>
                 <label for='primacy'>Priority:</label>
-                <select value={priority} onChange={handlePriority}>
+                <select
+                  value={priority}
+                  onClick={handlePriority}
+                  onChange={(event) =>
+                    props.onUpdatePriority(event.target.value, props.todo.id)
+                  }
+                >
                   {optionList.map((item) => {
                     return <option>{item}</option>
                   })}
