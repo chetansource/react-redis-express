@@ -8,9 +8,14 @@ function TodoForm() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem('items')) || []
   )
-
-  function addTodo(event) {
+  const [doneTodos, setDoneTodos] = useState(
+    JSON.parse(localStorage.getItem('doneItems')) || []
+  )
+  const [disable, setDisable] = useState(false)
+  function handleSubmit(event) {
     event.preventDefault()
+  }
+  function addTodo() {
     if (inputText.trim() === '') return
     todos.push({
       id: todos.length === 0 ? 0 : Math.max(...todos.map((e) => e.id)) + 1,
@@ -66,9 +71,31 @@ function TodoForm() {
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
+  function deleteDone() {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.filter((obj) => obj.checkbox !== true)
+    localStorage.setItem('items', JSON.stringify(editTodo))
+  }
+  function deleteAll() {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    fetchTodos.splice(0, fetchTodos.length)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  }
+  function showDone() {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    const editTodo = fetchTodos.filter((obj) => obj.checkbox === true)
+    setDoneTodos(editTodo)
+    localStorage.setItem('doneItems', JSON.stringify(editTodo))
+  }
+  function showAll() {
+    const fetchTodos = JSON.parse(localStorage.getItem('items'))
+    setTodos(fetchTodos)
+    localStorage.setItem('items', JSON.stringify(fetchTodos))
+    setDisable(false)
+  }
 
   return (
-    <form className='todoForm'>
+    <form className='todoForm' onSubmit={handleSubmit}>
       <div className='form'>
         <input
           className='title'
@@ -95,6 +122,26 @@ function TodoForm() {
             onUpdatePriority={updatePriority}
           />
         ))}
+      </div>
+      <div>
+        <footer className='footerButton'>
+          <button className='delDone' onClick={() => deleteDone()}>
+            Delete Completed
+          </button>
+          <button className='delAll' onClick={() => deleteAll()}>
+            Delete All
+          </button>
+          <button
+            className='showDone'
+            disabled={disable}
+            onClick={() => setDisable(true)}
+          >
+            Show Done
+          </button>
+          <button className='showAll' onClick={() => showAll()}>
+            Show All
+          </button>
+        </footer>
       </div>
     </form>
   )
