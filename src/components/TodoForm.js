@@ -8,14 +8,10 @@ function TodoForm() {
   const [todos, setTodos] = useState(
     JSON.parse(localStorage.getItem('items')) || []
   )
-  const [doneTodos, setDoneTodos] = useState(
-    JSON.parse(localStorage.getItem('doneItems')) || []
-  )
-  const [disable, setDisable] = useState(false)
-  function handleSubmit(event) {
+  const fetchTodos = JSON.parse(localStorage.getItem('items'))
+
+  function addTodo(event) {
     event.preventDefault()
-  }
-  function addTodo() {
     if (inputText.trim() === '') return
     todos.push({
       id: todos.length === 0 ? 0 : Math.max(...todos.map((e) => e.id)) + 1,
@@ -37,65 +33,56 @@ function TodoForm() {
   }
 
   function updateCheckBox(check, id) {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.find((obj) => obj.id === id)
     editTodo.checkbox = !check
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function updateTitle(property, id) {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.find((obj) => obj.id === id)
     editTodo.title = property
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function updateNote(property, id) {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.find((obj) => obj.id === id)
     editTodo.notes = property
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function updateDueDate(property, id) {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.find((obj) => obj.id === id)
     editTodo.dueDate = property
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function updatePriority(property, id) {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.find((obj) => obj.id === id)
     editTodo.priority = property
     setTodos(fetchTodos)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function deleteDone() {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     const editTodo = fetchTodos.filter((obj) => obj.checkbox !== true)
     localStorage.setItem('items', JSON.stringify(editTodo))
   }
   function deleteAll() {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
     fetchTodos.splice(0, fetchTodos.length)
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
   function showDone() {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
-    const editTodo = fetchTodos.filter((obj) => obj.checkbox === true)
-    setDoneTodos(editTodo)
-    localStorage.setItem('doneItems', JSON.stringify(editTodo))
+    const tempTodos = fetchTodos
+    localStorage.setItem('pushItems', JSON.stringify(tempTodos))
+    const editTodo = tempTodos.filter((obj) => obj.checkbox === true)
+    localStorage.setItem('items', JSON.stringify(editTodo))
   }
   function showAll() {
-    const fetchTodos = JSON.parse(localStorage.getItem('items'))
-    setTodos(fetchTodos)
+    const fetchTodos = JSON.parse(localStorage.getItem('pushItems'))
     localStorage.setItem('items', JSON.stringify(fetchTodos))
-    setDisable(false)
   }
 
   return (
-    <form className='todoForm' onSubmit={handleSubmit}>
+    <form className='todoForm'>
       <div className='form'>
         <input
           className='title'
@@ -133,8 +120,9 @@ function TodoForm() {
           </button>
           <button
             className='showDone'
-            disabled={disable}
-            onClick={() => setDisable(true)}
+            onClick={() => {
+              showDone()
+            }}
           >
             Show Done
           </button>
