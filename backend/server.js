@@ -1,4 +1,5 @@
 import express from 'express'
+import cors from 'cors'
 import {
   connectDataBase,
   getTodos,
@@ -10,6 +11,7 @@ import {
 const app = express()
 connectDataBase()
 
+app.use(cors({ methods: ['GET', 'POST', 'DELETE', 'PUT'] }))
 app.use(express.json())
 
 app.get('/', async (req, res) => {
