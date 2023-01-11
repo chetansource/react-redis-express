@@ -19,7 +19,7 @@ export async function getTodos() {
     const todos = Object.values(data)
     return todos.map((todo) => JSON.parse(todo))
   } catch (error) {
-    console.log('db error:', error)
+    console.log('database  error:', error)
     throw Error
   }
 }
@@ -36,8 +36,18 @@ export async function insertTodo(todo) {
     const newId = await client.get('counter')
     return await client.hSet('todos', newId, JSON.stringify(newTodo))
   } catch (error) {
-    console.log('database error', error)
+    console.log('database error:', error)
     throw Error
+  }
+}
+export async function alterTodo(id, property, value) {
+  try {
+    const todo = await client.hGet('todos', id)
+    const obj = JSON.parse(todo)
+    obj[property] = value
+    return await client.hSet('todos', id, JSON.stringify(obj))
+  } catch (error) {
+    console.log('database error:', error)
   }
 }
 
@@ -45,7 +55,7 @@ export async function delTodo(id) {
   try {
     return await client.hDel('todos', id)
   } catch (error) {
-    console.log('database error', error)
+    console.log('database error:', error)
     throw Error
   }
 }
