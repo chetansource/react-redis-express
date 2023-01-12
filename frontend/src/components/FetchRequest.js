@@ -62,12 +62,41 @@ export async function updateTodo(field, val, id) {
 export async function removeTodo(id) {
   try {
     const config = {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
+      method: 'DELETE'
     }
     const url = globalUrl + 'hDel/' + id
+    const response = await fetch(url, config)
+    if (!response.ok) {
+      throw new Error(`HTTP error status:${response.status}`)
+    }
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function removeDone(id) {
+  try {
+    const config = {
+      method: 'DELETE'
+    }
+    const url = globalUrl + 'hDelDone'
+    const response = await fetch(url, config)
+    if (!response.ok) {
+      throw new Error(`HTTP error status:${response.status}`)
+    }
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function removeAll(id) {
+  try {
+    const config = {
+      method: 'DELETE'
+    }
+    const url = globalUrl + 'hDelAll'
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)

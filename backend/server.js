@@ -6,7 +6,8 @@ import {
   insertTodo,
   delTodo,
   alterTodo,
-  delDone
+  delDoneTodos,
+  delAllTodos
 } from './database.js'
 
 const app = express()
@@ -60,7 +61,17 @@ app.delete('/hDel/:id', async (req, res) => {
 
 app.delete('/hDelDone', async (req, res) => {
   try {
-    await delDone()
+    await delDoneTodos()
+    res.sendStatus(200)
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+})
+
+app.delete('/hDelAll', async (req, res) => {
+  try {
+    await delAllTodos()
     res.sendStatus(200)
   } catch (error) {
     console.log(error)

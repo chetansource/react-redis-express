@@ -2,15 +2,21 @@ import { useEffect, useState } from 'react'
 import React from 'react'
 import './TodoForm.css'
 import TodoItem from './TodoItem.js'
-import { getTodos, insertTodo, removeTodo, updateTodo } from './FetchRequest.js'
+import {
+  getTodos,
+  insertTodo,
+  removeTodo,
+  updateTodo,
+  removeDone,
+  removeAll
+} from './FetchRequest.js'
 
 function TodoForm() {
   const [inputText, setInputText] = useState('')
   const [todos, setTodos] = useState([])
-  const fetchTodos = JSON.parse(localStorage.getItem('items'))
+  const copyTodos = todos
 
-  async function addTodo(event) {
-    event.preventDefault()
+  async function addTodo() {
     if (inputText.trim() === '') return
     await insertTodo(inputText)
     setTodos(await getTodos())
@@ -41,23 +47,20 @@ function TodoForm() {
     await updateTodo(property, value, id)
     setTodos(await getTodos())
   }
-  function deleteDone() {
-    const editTodo = fetchTodos.filter((obj) => obj.checkbox !== true)
-    localStorage.setItem('items', JSON.stringify(editTodo))
+  async function deleteDone() {
+    await removeDone()
+    setTodos(await getTodos())
   }
-  function deleteAll() {
-    fetchTodos.splice(0, fetchTodos.length)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function deleteAll() {
+    await removeAll()
   }
   function showDone() {
-    const tempTodos = fetchTodos
-    localStorage.setItem('pushItems', JSON.stringify(tempTodos))
-    const editTodo = tempTodos.filter((obj) => obj.checkbox === true)
-    localStorage.setItem('items', JSON.stringify(editTodo))
+    const filteredTodos = copyTodos.filter((todo) => todo.checkbox === true)
+    setTodos(filteredTodos)
   }
   function showAll() {
-    const fetchTodos = JSON.parse(localStorage.getItem('pushItems'))
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+    console.log(todos)
+    setTodos(todos)
   }
 
   //useEffect hook
@@ -68,7 +71,7 @@ function TodoForm() {
   }, [])
 
   return (
-    <form className='todoForm'>
+    <form className='todoForm' onSubmit={(e) => e.preventDefault()}>
       <div className='form'>
         <input
           className='title'

@@ -54,7 +54,6 @@ export async function alterTodo(id, property, value) {
 
 export async function delTodo(id) {
   try {
-    console.log(typeof id)
     return await client.hDel('todos', id)
   } catch (error) {
     console.log('database error:', error)
@@ -62,12 +61,24 @@ export async function delTodo(id) {
   }
 }
 
-export async function delDone() {
+export async function delDoneTodos() {
   try {
-    const todos = await client.hGetAll('todos')
-    const objects = Object.values(todos)
-    const parsedObj = objects.map((obj) => JSON.parse(obj))
-    console.log(parsedObj)
+    const data = await client.hGetAll('todos')
+    const todos = Object.values(data)
+    const completedTask = todos
+      .map((obj) => JSON.parse(obj))
+      .filter((obj) => obj.checkbox === true)
+    const id = completedTask.map((todo) => todo.id)
+    await client.hDel('todos', id)
+  } catch (error) {
+    console.log('database error:', error)
+    throw Error
+  }
+}
+
+export async function delAllTodos() {
+  try {
+    return await client.flushDb()
   } catch (error) {
     console.log('database error:', error)
     throw Error
