@@ -14,7 +14,7 @@ connectDataBase()
 app.use(cors({ methods: ['GET', 'POST', 'DELETE', 'PUT'] }))
 app.use(express.json())
 
-app.get('/', async (req, res) => {
+app.get('/hGetAll', async (req, res) => {
   try {
     const todos = await getTodos()
     console.log(todos)
