@@ -25,15 +25,16 @@ export async function getTodos() {
 }
 export async function insertTodo(todo) {
   try {
+    await client.incr('counter')
+    const newId = await client.get('counter')
     const newTodo = {
+      id: newId,
       title: todo,
-      checkbox: '',
+      checkbox: false,
       notes: '',
       dueDate: '',
       priority: ''
     }
-    await client.incr('counter')
-    const newId = await client.get('counter')
     return await client.hSet('todos', newId, JSON.stringify(newTodo))
   } catch (error) {
     console.log('database error:', error)
@@ -53,7 +54,20 @@ export async function alterTodo(id, property, value) {
 
 export async function delTodo(id) {
   try {
+    console.log(typeof id)
     return await client.hDel('todos', id)
+  } catch (error) {
+    console.log('database error:', error)
+    throw Error
+  }
+}
+
+export async function delDone() {
+  try {
+    const todos = await client.hGetAll('todos')
+    const objects = Object.values(todos)
+    const parsedObj = objects.map((obj) => JSON.parse(obj))
+    console.log(parsedObj)
   } catch (error) {
     console.log('database error:', error)
     throw Error

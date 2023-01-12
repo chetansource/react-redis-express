@@ -1,66 +1,45 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import React from 'react'
 import './TodoForm.css'
 import TodoItem from './TodoItem.js'
+import { getTodos, insertTodo, removeTodo, updateTodo } from './FetchRequest.js'
 
 function TodoForm() {
   const [inputText, setInputText] = useState('')
-  const [todos, setTodos] = useState(
-    JSON.parse(localStorage.getItem('items')) || []
-  )
+  const [todos, setTodos] = useState([])
   const fetchTodos = JSON.parse(localStorage.getItem('items'))
 
-  function addTodo(event) {
+  async function addTodo(event) {
     event.preventDefault()
     if (inputText.trim() === '') return
-    todos.push({
-      id: todos.length === 0 ? 0 : Math.max(...todos.map((e) => e.id)) + 1,
-      title: inputText,
-      checkbox: false,
-      dueDate: new Date().toISOString().slice(0, 10),
-      notes: '',
-      priority: ''
-    })
-    localStorage.setItem('items', JSON.stringify(todos))
+    await insertTodo(inputText)
+    setTodos(await getTodos())
     setInputText('')
   }
-  function deleteTodo(id) {
-    const removeTodo = todos.filter((todo) => {
-      return todo.id !== id
-    })
-    setTodos(removeTodo)
-    localStorage.setItem('items', JSON.stringify(removeTodo))
+  async function deleteTodo(id) {
+    await removeTodo(id)
+    setTodos(await getTodos())
   }
 
-  function updateCheckBox(check, id) {
-    const editTodo = fetchTodos.find((obj) => obj.id === id)
-    editTodo.checkbox = !check
-    setTodos(fetchTodos)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function updateCheckBox(property, value, id) {
+    await updateTodo(property, value, id)
+    setTodos(await getTodos())
   }
-  function updateTitle(property, id) {
-    const editTodo = fetchTodos.find((obj) => obj.id === id)
-    editTodo.title = property
-    setTodos(fetchTodos)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function updateTitle(property, value, id) {
+    await updateTodo(property, value, id)
+    setTodos(await getTodos())
   }
-  function updateNote(property, id) {
-    const editTodo = fetchTodos.find((obj) => obj.id === id)
-    editTodo.notes = property
-    setTodos(fetchTodos)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function updateNote(property, value, id) {
+    await updateTodo(property, value, id)
+    setTodos(await getTodos())
   }
-  function updateDueDate(property, id) {
-    const editTodo = fetchTodos.find((obj) => obj.id === id)
-    editTodo.dueDate = property
-    setTodos(fetchTodos)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function updateDueDate(property, value, id) {
+    await updateTodo(property, value, id)
+    setTodos(await getTodos())
   }
-  function updatePriority(property, id) {
-    const editTodo = fetchTodos.find((obj) => obj.id === id)
-    editTodo.priority = property
-    setTodos(fetchTodos)
-    localStorage.setItem('items', JSON.stringify(fetchTodos))
+  async function updatePriority(property, value, id) {
+    await updateTodo(property, value, id)
+    setTodos(await getTodos())
   }
   function deleteDone() {
     const editTodo = fetchTodos.filter((obj) => obj.checkbox !== true)
@@ -80,6 +59,13 @@ function TodoForm() {
     const fetchTodos = JSON.parse(localStorage.getItem('pushItems'))
     localStorage.setItem('items', JSON.stringify(fetchTodos))
   }
+
+  //useEffect hook
+  useEffect(() => {
+    getTodos().then((todos) => {
+      setTodos(todos)
+    })
+  }, [])
 
   return (
     <form className='todoForm'>

@@ -5,7 +5,8 @@ import {
   getTodos,
   insertTodo,
   delTodo,
-  alterTodo
+  alterTodo,
+  delDone
 } from './database.js'
 
 const app = express()
@@ -17,7 +18,6 @@ app.use(express.json())
 app.get('/hGetAll', async (req, res) => {
   try {
     const todos = await getTodos()
-    console.log(todos)
     res.json(todos)
   } catch (error) {
     console.log(error)
@@ -51,6 +51,16 @@ app.put('/hSet/:id', async (req, res) => {
 app.delete('/hDel/:id', async (req, res) => {
   try {
     await delTodo(req.params.id)
+    res.sendStatus(200)
+  } catch (error) {
+    console.log(error)
+    res.sendStatus(500)
+  }
+})
+
+app.delete('/hDelDone', async (req, res) => {
+  try {
+    await delDone()
     res.sendStatus(200)
   } catch (error) {
     console.log(error)

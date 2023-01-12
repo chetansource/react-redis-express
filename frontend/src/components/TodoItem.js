@@ -20,7 +20,11 @@ function TodoItem(props) {
           className='checkBox'
           checked={props.todo.checkbox}
           onChange={() =>
-            props.onCheckboxUpdate(props.todo.checkbox, props.todo.id)
+            props.onCheckboxUpdate(
+              'checkbox',
+              !props.todo.checkbox,
+              props.todo.id
+            )
           }
         ></input>
         <input
@@ -29,7 +33,7 @@ function TodoItem(props) {
           value={props.todo.title}
           onClick={handleClick}
           onChange={(event) =>
-            props.onUpdateTitle(event.target.value, props.todo.id)
+            props.onUpdateTitle('title', event.target.value, props.todo.id)
           }
         ></input>
       </div>
@@ -40,7 +44,7 @@ function TodoItem(props) {
               className='textNote'
               value={props.todo.notes}
               onChange={(event) =>
-                props.onUpdateNote(event.target.value, props.todo.id)
+                props.onUpdateNote('notes', event.target.value, props.todo.id)
               }
             ></textarea>
             <div className='elements'>
@@ -51,7 +55,11 @@ function TodoItem(props) {
                   id='dueDate'
                   value={props.todo.dueDate}
                   onChange={(event) =>
-                    props.onUpdateDueDate(event.target.value, props.todo.id)
+                    props.onUpdateDueDate(
+                      'dueDate',
+                      event.target.value,
+                      props.todo.id
+                    )
                   }
                 ></input>
               </div>
@@ -61,7 +69,11 @@ function TodoItem(props) {
                   value={priority}
                   onClick={handlePriority}
                   onChange={(event) =>
-                    props.onUpdatePriority(event.target.value, props.todo.id)
+                    props.onUpdatePriority(
+                      'priority',
+                      event.target.value,
+                      props.todo.id
+                    )
                   }
                 >
                   {optionList.map((item) => {
