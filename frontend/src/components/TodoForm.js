@@ -14,7 +14,6 @@ import {
 function TodoForm() {
   const [inputText, setInputText] = useState('')
   const [todos, setTodos] = useState([])
-  const copyTodos = todos
 
   async function addTodo() {
     if (inputText.trim() === '') return
@@ -53,14 +52,15 @@ function TodoForm() {
   }
   async function deleteAll() {
     await removeAll()
+    setTodos(await getTodos())
   }
+
   function showDone() {
-    const filteredTodos = copyTodos.filter((todo) => todo.checkbox === true)
+    const filteredTodos = todos.filter((todo) => todo.checkbox === true)
     setTodos(filteredTodos)
   }
-  function showAll() {
-    console.log(todos)
-    setTodos(todos)
+  async function showAll() {
+    setTodos(await getTodos())
   }
 
   //useEffect hook
