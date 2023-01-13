@@ -50,11 +50,12 @@ function TodoForm() {
     await removeDone()
     setTodos(await getTodos())
   }
+
   async function deleteAll() {
     await removeAll()
-    setTodos(await getTodos())
   }
 
+  // const allTodos = todos
   function showDone() {
     const filteredTodos = todos.filter((todo) => todo.checkbox === true)
     setTodos(filteredTodos)
