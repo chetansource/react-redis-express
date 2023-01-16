@@ -6,6 +6,7 @@
     "htmlWhitespaceSensitivity": "css",
     "insertPragma": false,
     "jsxSingleQuote": true,
+    "jsxBracketSameLine": true,
     "proseWrap": "preserve",
     "quoteProps": "as-needed",
     "requirePragma": false,

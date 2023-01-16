@@ -9,3 +9,5 @@
 9. mvc pattern need to be applied for the app.
 10. learn cors why to use it
 11. make 2 tables completed todos and uncompleted todos and then use them according to
+
+** completed ** 8. set up the eslint

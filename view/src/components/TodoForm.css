@@ -1,0 +1,65 @@
+.todoForm{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+ 
+}
+.form{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.title{
+    margin-top: 20px;
+    width: 500px;
+    height:30px;
+    font-size: 20px;
+  }
+  .submitBtn{
+    height:38px;
+    width:90px;
+    margin-top: 20px;
+  
+  }
+  .submitBtn:hover{
+    background-color: greenyellow;
+  }
+  .footerButton{
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+  }
+  .delDone{
+    width:150px;
+    font-size:15px;
+  }
+  .delAll{
+    width:150px;
+    font-size:18px;
+  }
+  .showDone{
+    width:150px;
+    font-size:18px;
+  }
+  .showAll{
+    width:150px;
+    font-size:18px;
+  }
+
+.delDone:hover{
+  background: rgb(253, 177, 177);
+}
+.delAll:hover{
+  background: rgb(252, 117, 117);
+}
+.showDone:hover{
+  background: rgb(197, 252, 142);
+}
+.showAll:hover{
+  background: rgb(167, 246, 89);
+}
