@@ -27,7 +27,7 @@ export const updateTodoController = async (req, res) => {
     res.json(updatedTodo)
   } catch (error) {
     console.log(error)
-    res.sendStatus(304) //It tells the client that the response has not been modified
+    res.sendStatus(500)
   }
 }
 
@@ -47,7 +47,7 @@ export const deleteTodoController = async (req, res) => {
     res.sendStatus(200)
   } catch (error) {
     console.log(error)
-    res.sendStatus(501) //change  the statuscode
+    res.sendStatus(500)
   }
 }
 
@@ -56,8 +56,8 @@ export const deleteDoneTodoController = async (req, res) => {
     await delDoneTodos()
     res.sendStatus(200)
   } catch (error) {
-    console.log('deleteDoneTodoController', error)
-    res.sendStatus(501)
+    console.log('Error:', error)
+    res.sendStatus(500)
   }
 }
 
@@ -67,6 +67,6 @@ export const deleteAllTodoController = async (req, res) => {
     res.sendStatus(200)
   } catch (error) {
     console.log(error)
-    res.sendStatus(501) //NOT Implemented
+    res.sendStatus(500)
   }
 }

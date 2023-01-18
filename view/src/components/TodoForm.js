@@ -14,6 +14,7 @@ import {
 function TodoForm() {
   const [inputText, setInputText] = useState('')
   const [todos, setTodos] = useState([])
+  const [doneTodos, setDoneTodos] = useState('')
 
   async function addTodo() {
     if (inputText.trim() === '') return
@@ -58,11 +59,10 @@ function TodoForm() {
   }
 
   function showDone() {
-    const filteredTodos = todos.filter((todo) => todo.checkbox === true)
-    setTodos(filteredTodos)
+    setDoneTodos('showDone')
   }
   async function showAll() {
-    setTodos(await getTodos())
+    setDoneTodos('showAll')
   }
 
   //useEffect hook
@@ -88,18 +88,24 @@ function TodoForm() {
         </button>
       </div>
       <div>
-        {todos.map((todo) => (
-          <TodoItem
-            key={todo.id}
-            todo={todo}
-            onDelete={deleteTodo}
-            onCheckboxUpdate={updateCheckBox}
-            onUpdateTitle={updateTitle}
-            onUpdateNote={updateNote}
-            onUpdateDueDate={updateDueDate}
-            onUpdatePriority={updatePriority}
-          />
-        ))}
+        {todos
+          .filter((todo) => {
+            if (doneTodos === 'showDone') return todo.checkbox
+            // if(doneTodos === 'showAll') return
+            return true
+          })
+          .map((todo) => (
+            <TodoItem
+              key={todo.id}
+              todo={todo}
+              onDelete={deleteTodo}
+              onCheckboxUpdate={updateCheckBox}
+              onUpdateTitle={updateTitle}
+              onUpdateNote={updateNote}
+              onUpdateDueDate={updateDueDate}
+              onUpdatePriority={updatePriority}
+            />
+          ))}
       </div>
       <div>
         <footer className='footerButton'>

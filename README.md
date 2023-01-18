@@ -16,3 +16,4 @@
 6. i have demoed about restful api convention.
 7. read about debouncing
 8. mvc pattern implemented in the app.
+9. make 2 tables completed todos and uncompleted todos and then use them according to
