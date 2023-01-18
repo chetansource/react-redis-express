@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { debounce } from 'lodash'
 import './TodoItem.css'
 function TodoItem(props) {
   const optionList = ['none', 'low', 'medium', 'high']
@@ -11,6 +12,9 @@ function TodoItem(props) {
   function handleClick() {
     setDropDown(!dropDown)
   }
+  const handleChange = debounce((event) => {
+    props.onUpdateTitle('title', event.target.value, props.todo.id)
+  }, 500)
 
   return (
     <div>
@@ -25,17 +29,13 @@ function TodoItem(props) {
               !props.todo.checkbox,
               props.todo.id
             )
-          }
-        ></input>
+          }></input>
         <input
           type='text'
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
-          onChange={(event) =>
-            props.onUpdateTitle('title', event.target.value, props.todo.id)
-          }
-        ></input>
+          onChange={handleChange}></input>
       </div>
       <div className='dropdown'>
         {dropDown && (
@@ -45,8 +45,7 @@ function TodoItem(props) {
               value={props.todo.notes}
               onChange={(event) =>
                 props.onUpdateNote('notes', event.target.value, props.todo.id)
-              }
-            ></textarea>
+              }></textarea>
             <div className='elements'>
               <div>
                 <label for='dateInput'>DueDate:</label>
@@ -60,8 +59,7 @@ function TodoItem(props) {
                       event.target.value,
                       props.todo.id
                     )
-                  }
-                ></input>
+                  }></input>
               </div>
               <div>
                 <label for='primacy'>Priority:</label>
@@ -74,8 +72,7 @@ function TodoItem(props) {
                       event.target.value,
                       props.todo.id
                     )
-                  }
-                >
+                  }>
                   {optionList.map((item) => {
                     return <option>{item}</option>
                   })}
@@ -83,8 +80,7 @@ function TodoItem(props) {
               </div>
               <button
                 className='delTodo'
-                onClick={() => props.onDelete(props.todo.id)}
-              >
+                onClick={() => props.onDelete(props.todo.id)}>
                 Delete
               </button>
             </div>

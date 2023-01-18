@@ -1,8 +1,8 @@
-const globalUrl = 'http://localhost:3000/'
+const globalUrl = 'http://localhost:3000/Todos/'
 
 export async function getTodos() {
   try {
-    const url = globalUrl + 'hGetAll'
+    const url = globalUrl
     const response = await fetch(url)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
@@ -25,7 +25,7 @@ export async function insertTodo(input) {
         title: input
       })
     }
-    const url = globalUrl + 'hSet'
+    const url = globalUrl
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
@@ -48,7 +48,7 @@ export async function updateTodo(field, val, id) {
         value: val
       })
     }
-    const url = globalUrl + 'hSet/' + id
+    const url = globalUrl + id
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
@@ -64,7 +64,7 @@ export async function removeTodo(id) {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'hDel/' + id
+    const url = globalUrl + id
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
@@ -80,7 +80,7 @@ export async function removeDone(id) {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'hDelDone'
+    const url = globalUrl + 'TodosDone'
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
@@ -96,7 +96,7 @@ export async function removeAll(id) {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'hDelAll'
+    const url = globalUrl + 'TodosAll'
     const response = await fetch(url, config)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)

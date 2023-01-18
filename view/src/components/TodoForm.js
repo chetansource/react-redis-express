@@ -34,6 +34,7 @@ function TodoForm() {
     await updateTodo(property, value, id)
     setTodos(await getTodos())
   }
+
   async function updateNote(property, value, id) {
     await updateTodo(property, value, id)
     setTodos(await getTodos())
@@ -55,7 +56,6 @@ function TodoForm() {
     await removeAll()
   }
 
-  // const allTodos = todos
   function showDone() {
     const filteredTodos = todos.filter((todo) => todo.checkbox === true)
     setTodos(filteredTodos)
@@ -112,8 +112,7 @@ function TodoForm() {
             className='showDone'
             onClick={() => {
               showDone()
-            }}
-          >
+            }}>
             Show Done
           </button>
           <button className='showAll' onClick={() => showAll()}>

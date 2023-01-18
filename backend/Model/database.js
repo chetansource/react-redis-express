@@ -33,7 +33,8 @@ export async function insertTodo(todo) {
       checkbox: false,
       notes: '',
       dueDate: '',
-      priority: ''
+      priority: '',
+      deleted: false
     }
     return await client.hSet('todos', newId, JSON.stringify(newTodo))
   } catch (error) {
@@ -54,7 +55,11 @@ export async function alterTodo(id, property, value) {
 
 export async function delTodo(id) {
   try {
-    return await client.hDel('todos', id)
+    const todo = await client.hGet('todos', id)
+    const obj = JSON.parse(todo)
+    await client.hDel('todos', id)
+    obj.deleted = true
+    return await client.hSet('deletedTodos', id, JSON.stringify(obj))
   } catch (error) {
     console.log('database error:', error)
     throw Error

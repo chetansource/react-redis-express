@@ -1,4 +1,4 @@
-import app from '../server.js'
+import express from 'express'
 import {
   getTodosController,
   insertTodoController,
@@ -8,14 +8,18 @@ import {
   deleteAllTodoController
 } from '../Controllers/controller.js'
 
-app.get('/hGetAll', getTodosController)
+const router = express.Router()
 
-app.post('/hSet', insertTodoController)
+router.get('/', getTodosController) //change it to all small case, remove  todo in path
 
-app.put('/hSet/:id', updateTodoController)
+router.post('/', insertTodoController)
 
-app.delete('/hDel/:id', deleteTodoController)
+router.put('/:id', updateTodoController)
 
-app.delete('/hDelDone', deleteDoneTodoCOntroller)
+router.delete('/:id', deleteTodoController)
 
-app.delete('/hDelAll', deleteAllTodoController)
+router.delete('/TodosDone', deleteDoneTodoCOntroller) //implement soft delete
+
+router.delete('/TodosAll', deleteAllTodoController)
+
+export default router
