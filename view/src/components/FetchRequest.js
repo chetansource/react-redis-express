@@ -1,4 +1,4 @@
-const globalUrl = 'http://localhost:3000/Todos/'
+const globalUrl = 'http://localhost:3000/todos/'
 
 export async function getTodos() {
   try {
@@ -75,13 +75,14 @@ export async function removeTodo(id) {
   }
 }
 
-export async function removeDone(id) {
+export async function removeDone() {
   try {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'TodosDone'
+    const url = globalUrl
     const response = await fetch(url, config)
+    console.log(response)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
     }
@@ -91,13 +92,15 @@ export async function removeDone(id) {
   }
 }
 
-export async function removeAll(id) {
+export async function removeAll() {
   try {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'TodosAll'
+    const url = globalUrl + 'del/all'
+    console.log(url)
     const response = await fetch(url, config)
+    console.log(response)
     if (!response.ok) {
       throw new Error(`HTTP error status:${response.status}`)
     }

@@ -3,7 +3,8 @@ import {
   alterTodo,
   insertTodo,
   delTodo,
-  delDoneTodos
+  delDoneTodos,
+  delAllTodos
 } from '../Model/database.js'
 
 export const getTodosController = async (req, res) => {
@@ -46,16 +47,16 @@ export const deleteTodoController = async (req, res) => {
     res.sendStatus(200)
   } catch (error) {
     console.log(error)
-    res.sendStatus(501) //change it the statuscode
+    res.sendStatus(501) //change  the statuscode
   }
 }
 
-export const deleteDoneTodoCOntroller = async (req, res) => {
+export const deleteDoneTodoController = async (req, res) => {
   try {
     await delDoneTodos()
     res.sendStatus(200)
   } catch (error) {
-    console.log(error)
+    console.log('deleteDoneTodoController', error)
     res.sendStatus(501)
   }
 }

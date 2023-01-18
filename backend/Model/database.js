@@ -57,9 +57,11 @@ export async function delTodo(id) {
   try {
     const todo = await client.hGet('todos', id)
     const obj = JSON.parse(todo)
-    await client.hDel('todos', id)
+    console.log(obj)
     obj.deleted = true
-    return await client.hSet('deletedTodos', id, JSON.stringify(obj))
+    console.log(obj.deleted)
+    await client.hDel('todos', id)
+    return await client.hSet('removedTodos', id, JSON.stringify(obj))
   } catch (error) {
     console.log('database error:', error)
     throw Error
@@ -74,7 +76,10 @@ export async function delDoneTodos() {
       .map((obj) => JSON.parse(obj))
       .filter((obj) => obj.checkbox === true)
     const id = completedTask.map((todo) => todo.id)
-    await client.hDel('todos', id)
+    completedTask.map(async (todo) => {
+      await client.hSet('removedTodos', todo.id, JSON.stringify(todo))
+    })
+    return await client.hDel('todos', id)
   } catch (error) {
     console.log('database error:', error)
     throw Error
@@ -83,7 +88,14 @@ export async function delDoneTodos() {
 
 export async function delAllTodos() {
   try {
-    return await client.flushDb()
+    const data = await client.hGetAll('todos')
+    let todos = Object.values(data)
+    todos = todos.map((todo) => JSON.parse(todo))
+    const id = todos.map((todo) => todo.id)
+    todos.map(async (todo) => {
+      await client.hSet('removedTodos', todo.id, JSON.stringify(todo))
+    })
+    return await client.hDel('todos', id)
   } catch (error) {
     console.log('database error:', error)
     throw Error

@@ -54,6 +54,7 @@ function TodoForm() {
 
   async function deleteAll() {
     await removeAll()
+    setTodos(await getTodos())
   }
 
   function showDone() {

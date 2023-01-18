@@ -9,7 +9,7 @@ connectDataBase()
 app.use(cors({ methods: ['GET', 'POST', 'DELETE', 'PUT'] }))
 app.use(express.json()) //It parses incoming requests with JSON payloads
 
-app.use('/Todos', router)
+app.use('/todos', router)
 
 app.listen(3000, () => {
   console.log('welcome to redis')

@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { debounce } from 'lodash'
 import './TodoItem.css'
 function TodoItem(props) {
   const optionList = ['none', 'low', 'medium', 'high']
@@ -12,9 +11,6 @@ function TodoItem(props) {
   function handleClick() {
     setDropDown(!dropDown)
   }
-  const handleChange = debounce((event) => {
-    props.onUpdateTitle('title', event.target.value, props.todo.id)
-  }, 500)
 
   return (
     <div>
@@ -35,7 +31,9 @@ function TodoItem(props) {
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
-          onChange={handleChange}></input>
+          onChange={(event) =>
+            props.onUpdateTitle('title', event.target.value, props.todo.id)
+          }></input>
       </div>
       <div className='dropdown'>
         {dropDown && (
