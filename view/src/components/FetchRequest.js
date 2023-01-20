@@ -80,7 +80,8 @@ export async function removeDone() {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl
+    const url = globalUrl + '?checkbox=true'
+    console.log(url)
     const response = await fetch(url, config)
     console.log(response)
     if (!response.ok) {
@@ -97,8 +98,7 @@ export async function removeAll() {
     const config = {
       method: 'DELETE'
     }
-    const url = globalUrl + 'del/all'
-    console.log(url)
+    const url = globalUrl + '?checkbox=false'
     const response = await fetch(url, config)
     console.log(response)
     if (!response.ok) {

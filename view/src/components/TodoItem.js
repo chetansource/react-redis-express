@@ -3,6 +3,7 @@ import './TodoItem.css'
 function TodoItem(props) {
   const optionList = ['none', 'low', 'medium', 'high']
   const [priority, setPriority] = useState('none')
+
   function handlePriority(e) {
     setPriority(e.target.value)
   }
@@ -11,6 +12,18 @@ function TodoItem(props) {
   function handleClick() {
     setDropDown(!dropDown)
   }
+
+  // const inputChanged = (event) => {
+  //   setTitle(event.target.value)
+  //   clearTimeout(timer)
+
+  //   const newTimer = setTimeout(() => {
+  //     props.onUpdateNote('notes', setitle, props.todo.id)
+  //   }, 2000)
+  //   setTimer(newTimer)
+  // }
+  // (event) =>
+  //
 
   return (
     <div>
@@ -31,8 +44,8 @@ function TodoItem(props) {
           className='todoTitle'
           value={props.todo.title}
           onClick={handleClick}
-          onChange={(event) =>
-            props.onUpdateTitle('title', event.target.value, props.todo.id)
+          onChange={(e) =>
+            props.onUpdateTitle('title', e.target.value, props.todo.id)
           }></input>
       </div>
       <div className='dropdown'>

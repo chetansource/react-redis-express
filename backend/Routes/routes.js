@@ -4,8 +4,7 @@ import {
   insertTodoController,
   updateTodoController,
   deleteTodoController,
-  deleteDoneTodoController,
-  deleteAllTodoController
+  deleteTodosController
 } from '../Controllers/controller.js'
 
 const router = express.Router()
@@ -18,8 +17,6 @@ router.put('/:id', updateTodoController)
 
 router.delete('/:id', deleteTodoController)
 
-router.delete('/', deleteDoneTodoController)
-
-router.delete('/del/all', deleteAllTodoController)
+router.delete('/', deleteTodosController)
 
 export default router

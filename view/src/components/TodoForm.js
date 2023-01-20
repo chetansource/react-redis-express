@@ -31,6 +31,33 @@ function TodoForm() {
     await updateTodo(property, value, id)
     setTodos(await getTodos())
   }
+
+  // let timer
+  // function debounceUpdate(val) {
+  //   clearTimeout(timer)
+  //   timer = setTimeout(() => {
+  //     let value = val
+  //     props.onUpdateTitle('title', value, props.todo.id)
+  //   }, 1000)
+  // }
+
+  // let timer
+  // let p = property
+  // let v = value
+  // let i = id
+  // let status = false
+  // function debounceUpdate() {
+  //   clearTimeout(timer)
+  //   timer = setTimeout(async () => {
+  //     await updateTodo(p, v, i)
+  //     status = true
+  //   }, 1000)
+  // }
+
+  // debounceUpdate()
+  // if (status === true) {
+  //   setTodos(await getTodos())
+  // }
   async function updateTitle(property, value, id) {
     await updateTodo(property, value, id)
     setTodos(await getTodos())
@@ -91,7 +118,6 @@ function TodoForm() {
         {todos
           .filter((todo) => {
             if (doneTodos === 'showDone') return todo.checkbox
-            // if(doneTodos === 'showAll') return
             return true
           })
           .map((todo) => (

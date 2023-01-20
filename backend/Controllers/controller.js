@@ -6,11 +6,12 @@ import {
   delDoneTodos,
   delAllTodos
 } from '../Model/database.js'
+import isEmpty from '../utility.js'
 
 export const getTodosController = async (req, res) => {
   try {
     const todos = await getTodos()
-    res.json(todos)
+    res.status(200).json(todos)
   } catch (error) {
     console.log(error)
     res.sendStatus(500)
@@ -19,6 +20,10 @@ export const getTodosController = async (req, res) => {
 
 export const updateTodoController = async (req, res) => {
   try {
+    if (isEmpty(req.body)) {
+      res.status(400).json({ message: 'invalid request' })
+      throw new Error('invalid request')
+    }
     const updatedTodo = await alterTodo(
       req.params.id,
       req.body.property,
@@ -27,7 +32,6 @@ export const updateTodoController = async (req, res) => {
     res.json(updatedTodo)
   } catch (error) {
     console.log(error)
-    res.sendStatus(500)
   }
 }
 
@@ -51,9 +55,14 @@ export const deleteTodoController = async (req, res) => {
   }
 }
 
-export const deleteDoneTodoController = async (req, res) => {
+export const deleteTodosController = async (req, res) => {
   try {
-    await delDoneTodos()
+    if (req.query.checkbox === 'true') {
+      await delDoneTodos()
+    }
+    if (req.query.checkbox === 'false') {
+      await delAllTodos()
+    }
     res.sendStatus(200)
   } catch (error) {
     console.log('Error:', error)
@@ -61,12 +70,12 @@ export const deleteDoneTodoController = async (req, res) => {
   }
 }
 
-export const deleteAllTodoController = async (req, res) => {
-  try {
-    await delAllTodos()
-    res.sendStatus(200)
-  } catch (error) {
-    console.log(error)
-    res.sendStatus(500)
-  }
-}
+// export const deleteAllTodoController = async (req, res) => {
+//   try {
+
+//     res.sendStatus(200)
+//   } catch (error) {
+//     console.log(error)
+//     res.sendStatus(500)
+//   }
+// }
