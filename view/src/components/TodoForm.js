@@ -24,65 +24,49 @@ function TodoForm() {
   }
   async function deleteTodo(id) {
     await removeTodo(id)
-    setTodos(await getTodos())
+    fetchTodos()
   }
 
   async function updateCheckBox(property, value, id) {
     await updateTodo(property, value, id)
-    setTodos(await getTodos())
+    fetchTodos()
   }
 
-  // let timer
-  // function debounceUpdate(val) {
-  //   clearTimeout(timer)
-  //   timer = setTimeout(() => {
-  //     let value = val
-  //     props.onUpdateTitle('title', value, props.todo.id)
-  //   }, 1000)
-  // }
-
-  // let timer
-  // let p = property
-  // let v = value
-  // let i = id
-  // let status = false
-  // function debounceUpdate() {
-  //   clearTimeout(timer)
-  //   timer = setTimeout(async () => {
-  //     await updateTodo(p, v, i)
-  //     status = true
-  //   }, 1000)
-  // }
-
-  // debounceUpdate()
-  // if (status === true) {
-  //   setTodos(await getTodos())
-  // }
-  async function updateTitle(property, value, id) {
-    await updateTodo(property, value, id)
-    setTodos(await getTodos())
+  let timer
+  function updateTitle(property, value, id) {
+    clearTimeout(timer)
+    timer = setTimeout(async () => {
+      await updateTodo(property, value, id)
+      await fetchTodos()
+    }, 1000)
   }
 
-  async function updateNote(property, value, id) {
-    await updateTodo(property, value, id)
-    setTodos(await getTodos())
+  function updateNote(property, value, id) {
+    clearTimeout(timer)
+    timer = setTimeout(async () => {
+      await updateTodo(property, value, id)
+      await fetchTodos()
+    }, 1000)
   }
+  // async function updateNote(property, value, id) {
+  //   await updateTodo(property, value, id)
+  //   fetchTodos()
+  // }
   async function updateDueDate(property, value, id) {
     await updateTodo(property, value, id)
-    setTodos(await getTodos())
+    fetchTodos()
   }
   async function updatePriority(property, value, id) {
     await updateTodo(property, value, id)
-    setTodos(await getTodos())
+    fetchTodos()
   }
   async function deleteDone() {
     await removeDone()
-    setTodos(await getTodos())
+    fetchTodos()
   }
 
   async function deleteAll() {
     await removeAll()
-    setTodos(await getTodos())
   }
 
   function showDone() {
@@ -90,6 +74,9 @@ function TodoForm() {
   }
   async function showAll() {
     setDoneTodos('showAll')
+  }
+  async function fetchTodos() {
+    setTodos(await getTodos())
   }
 
   //useEffect hook

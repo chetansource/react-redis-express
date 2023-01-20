@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import './TodoItem.css'
 function TodoItem(props) {
+  const [title, setTitle] = useState(props.todo.title)
+  const [notes, setNotes] = useState(props.todo.notes)
   const optionList = ['none', 'low', 'medium', 'high']
   const [priority, setPriority] = useState('none')
 
@@ -12,18 +14,14 @@ function TodoItem(props) {
   function handleClick() {
     setDropDown(!dropDown)
   }
-
-  // const inputChanged = (event) => {
-  //   setTitle(event.target.value)
-  //   clearTimeout(timer)
-
-  //   const newTimer = setTimeout(() => {
-  //     props.onUpdateNote('notes', setitle, props.todo.id)
-  //   }, 2000)
-  //   setTimer(newTimer)
-  // }
-  // (event) =>
-  //
+  const handleChangeTitle = (e) => {
+    setTitle(e.target.value)
+    props.onUpdateTitle('title', e.target.value, props.todo.id)
+  }
+  const handleChangeNotes = (e) => {
+    setNotes(e.target.value)
+    props.onUpdateTitle('title', e.target.value, props.todo.id)
+  }
 
   return (
     <div>
@@ -42,21 +40,17 @@ function TodoItem(props) {
         <input
           type='text'
           className='todoTitle'
-          value={props.todo.title}
+          value={title}
           onClick={handleClick}
-          onChange={(e) =>
-            props.onUpdateTitle('title', e.target.value, props.todo.id)
-          }></input>
+          onChange={handleChangeTitle}></input>
       </div>
       <div className='dropdown'>
         {dropDown && (
           <div>
             <textarea
               className='textNote'
-              value={props.todo.notes}
-              onChange={(event) =>
-                props.onUpdateNote('notes', event.target.value, props.todo.id)
-              }></textarea>
+              value={notes}
+              onChange={handleChangeNotes}></textarea>
             <div className='elements'>
               <div>
                 <label for='dateInput'>DueDate:</label>

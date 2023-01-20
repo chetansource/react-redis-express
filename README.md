@@ -11,9 +11,11 @@
 
 ** completed **
 
-4. use restApi convention and implement all routes according to it.
-5. learn cors why to use it
-6. i have demoed about restful api convention.
-7. read about debouncing
-8. mvc pattern implemented in the app.
-9. make 2 tables completed todos and uncompleted todos and then use them according to
+1. use restApi convention and implement all routes according to it.
+2. learn cors why to use it
+3. i have demoed about restful api convention.
+4. read about debouncing
+5. mvc pattern implemented in the app.
+6. make 2 tables completed todos and uncompleted todos and then use them according to
+7. implement soft delete. only get the undeleted one after get call
+8. you cant send request on every character typed
