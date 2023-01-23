@@ -20,7 +20,7 @@ export async function getTodos() {
     return todos.map((todo) => JSON.parse(todo))
   } catch (error) {
     console.log('database  error:', error)
-    throw Error
+    throw Error(' no data found')
   }
 }
 export async function insertTodo(todo) {

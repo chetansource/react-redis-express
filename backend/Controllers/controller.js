@@ -11,7 +11,7 @@ import isEmpty from '../utility.js'
 export const getTodosController = async (req, res) => {
   try {
     const todos = await getTodos()
-    res.status(200).json(todos)
+    res.json(todos)
   } catch (error) {
     console.log(error)
     res.sendStatus(500)
@@ -21,8 +21,7 @@ export const getTodosController = async (req, res) => {
 export const updateTodoController = async (req, res) => {
   try {
     if (isEmpty(req.body)) {
-      res.status(400).json({ message: 'invalid request' })
-      throw new Error('invalid request')
+      res.status(400).json({ message: 'invalid request' }) //terminate here since it flow passes
     }
     const updatedTodo = await alterTodo(
       req.params.id,
@@ -31,7 +30,7 @@ export const updateTodoController = async (req, res) => {
     )
     res.json(updatedTodo)
   } catch (error) {
-    console.log(error)
+    console.log(error) //test it
   }
 }
 
@@ -47,7 +46,7 @@ export const insertTodoController = async (req, res) => {
 
 export const deleteTodoController = async (req, res) => {
   try {
-    await delTodo(req.params.id)
+    await delTodo(req.params.id) // send error code 404 if the id doesnt exist
     res.sendStatus(200)
   } catch (error) {
     console.log(error)

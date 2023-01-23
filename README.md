@@ -19,3 +19,7 @@
 6. make 2 tables completed todos and uncompleted todos and then use them according to
 7. implement soft delete. only get the undeleted one after get call
 8. you cant send request on every character typed
+
+<!--1.  remove all the error handling in the model it should be in the controllers only
+3.use flex box remove all the padding and margin
+2. git ignore i need to ask mehul , find a way to  check all the sub dir  -->

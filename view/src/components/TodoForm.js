@@ -10,16 +10,17 @@ import {
   removeDone,
   removeAll
 } from './FetchRequest.js'
+import TodoFooter from './TodoFooter'
 
 function TodoForm() {
   const [inputText, setInputText] = useState('')
   const [todos, setTodos] = useState([])
-  const [doneTodos, setDoneTodos] = useState('')
+  const [doneTodos, setDoneTodos] = useState('showAll') //use default value instead of empty string
 
   async function addTodo() {
     if (inputText.trim() === '') return
     await insertTodo(inputText)
-    setTodos(await getTodos())
+    fetchTodos()
     setInputText('')
   }
   async function deleteTodo(id) {
@@ -37,7 +38,7 @@ function TodoForm() {
     clearTimeout(timer)
     timer = setTimeout(async () => {
       await updateTodo(property, value, id)
-      await fetchTodos()
+      fetchTodos()
     }, 1000)
   }
 
@@ -45,7 +46,7 @@ function TodoForm() {
     clearTimeout(timer)
     timer = setTimeout(async () => {
       await updateTodo(property, value, id)
-      await fetchTodos()
+      fetchTodos()
     }, 1000)
   }
   // async function updateNote(property, value, id) {
@@ -67,6 +68,7 @@ function TodoForm() {
 
   async function deleteAll() {
     await removeAll()
+    fetchTodos()
   }
 
   function showDone() {
@@ -121,24 +123,26 @@ function TodoForm() {
           ))}
       </div>
       <div>
-        <footer className='footerButton'>
-          <button className='delDone' onClick={() => deleteDone()}>
+        <TodoFooter
+          onDeleteDone={deleteDone}
+          onDeleteAll={deleteAll}
+          onShowAll={showAll}
+          onShowDone={showDone}
+        />
+        {/* <footer className='footerButton'>
+          <button className='delDone' onClick={deleteDone}>
             Delete Completed
           </button>
-          <button className='delAll' onClick={() => deleteAll()}>
+          <button className='delAll' onClick={deleteAll}>
             Delete All
           </button>
-          <button
-            className='showDone'
-            onClick={() => {
-              showDone()
-            }}>
+          <button className='showDone' onClick={showDone}>
             Show Done
           </button>
-          <button className='showAll' onClick={() => showAll()}>
+          <button className='showAll' onClick={showAll}>
             Show All
           </button>
-        </footer>
+        </footer> */}
       </div>
     </form>
   )

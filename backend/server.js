@@ -14,5 +14,3 @@ app.use('/todos', router)
 app.listen(3000, () => {
   console.log('welcome to redis')
 })
-
-export default router
