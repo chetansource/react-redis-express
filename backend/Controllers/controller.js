@@ -68,13 +68,3 @@ export const deleteTodosController = async (req, res) => {
     res.sendStatus(500)
   }
 }
-
-// export const deleteAllTodoController = async (req, res) => {
-//   try {
-
-//     res.sendStatus(200)
-//   } catch (error) {
-//     console.log(error)
-//     res.sendStatus(500)
-//   }
-// }

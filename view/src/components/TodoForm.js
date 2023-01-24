@@ -49,10 +49,7 @@ function TodoForm() {
       fetchTodos()
     }, 1000)
   }
-  // async function updateNote(property, value, id) {
-  //   await updateTodo(property, value, id)
-  //   fetchTodos()
-  // }
+
   async function updateDueDate(property, value, id) {
     await updateTodo(property, value, id)
     fetchTodos()
@@ -129,20 +126,6 @@ function TodoForm() {
           onShowAll={showAll}
           onShowDone={showDone}
         />
-        {/* <footer className='footerButton'>
-          <button className='delDone' onClick={deleteDone}>
-            Delete Completed
-          </button>
-          <button className='delAll' onClick={deleteAll}>
-            Delete All
-          </button>
-          <button className='showDone' onClick={showDone}>
-            Show Done
-          </button>
-          <button className='showAll' onClick={showAll}>
-            Show All
-          </button>
-        </footer> */}
       </div>
     </form>
   )

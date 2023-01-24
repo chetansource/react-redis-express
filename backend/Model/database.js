@@ -9,7 +9,6 @@ export async function connectDataBase() {
     console.log(' Redis Client connected..')
   } catch (error) {
     console.log('Redis Client Error', error)
-    throw Error
   }
 }
 
@@ -39,7 +38,7 @@ export async function insertTodo(todo) {
     return await client.hSet('todos', newId, JSON.stringify(newTodo))
   } catch (error) {
     console.log('database error:', error)
-    throw Error
+    throw Error('cannot inset new resource')
   }
 }
 export async function alterTodo(id, property, value) {
@@ -64,7 +63,7 @@ export async function delTodo(id) {
     return await client.hSet('removedTodos', id, JSON.stringify(obj))
   } catch (error) {
     console.log('database error:', error)
-    throw Error
+    throw Error('cannot delete the resource')
   }
 }
 
@@ -82,7 +81,6 @@ export async function delDoneTodos() {
     return await client.hDel('todos', id)
   } catch (error) {
     console.log('database error:', error)
-    throw Error
   }
 }
 
@@ -98,6 +96,5 @@ export async function delAllTodos() {
     return await client.hDel('todos', id)
   } catch (error) {
     console.log('database error:', error)
-    throw Error
   }
 }
