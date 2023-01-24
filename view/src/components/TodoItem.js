@@ -20,7 +20,7 @@ function TodoItem(props) {
   }
   const handleChangeNotes = (e) => {
     setNotes(e.target.value)
-    props.onUpdateTitle('title', e.target.value, props.todo.id)
+    props.onUpdateTitle('notes', e.target.value, props.todo.id)
   }
 
   return (
